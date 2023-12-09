@@ -31,6 +31,8 @@ def mod_inverse(e, phi_n):
     else:
         # Modular inverse exists, return x
         y = x % phi_n
+        if y < 0:
+            return phi_n + y
         return y
 
 
