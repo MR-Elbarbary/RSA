@@ -31,9 +31,25 @@ def mod_inverse(e, phi_n):
     else:
         # Modular inverse exists, return x
         y = x % phi_n
-        if y < 0:
-            return phi_n + y
         return y
+    
+
+def mod_exp(base, exponent, modulus):
+    result = 1
+    base = base % modulus  # Ensure base is within the modulus range
+
+    while exponent > 0:
+        # If the least significant bit of exponent is 1, multiply the result by base
+        if exponent % 2 == 1:
+            result = (result * base) % modulus
+
+        # Move to the next bit of the exponent
+        exponent //= 2
+
+        # Square the base (equivalent to moving to the next bit)
+        base = (base * base) % modulus
+
+    return result
 
 
 
@@ -53,3 +69,19 @@ print("m",m)
 print("p",p)
 print("q",q)
 print("d:",d)
+
+
+t = (m-110000)
+print("t",t)
+
+c = mod_exp(t, e, n)
+
+r = mod_exp(c, d, n)
+
+print("c",c)
+print("t",r)
+
+if t == r:
+    print("TRUE")
+else:
+    print("FALSE")
